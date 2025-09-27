@@ -1,0 +1,41 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import type { Capitulo } from "@/data/cie10";
+import data from "@/data/cie10.json";
+
+const capitulos = data as Capitulo[];
+
+const capitulo = Astro.params.capitulo ?? "";
+const selected = capitulos.find((c) => c.codigo === capitulo);
+
+const breadcrumbs = [
+  { label: "CIE-10", href: "/cie-10" },
+  { label: selected?.codigo || "Desconocido" }
+];
+---
+
+<Layout
+  title={`Capítulo ${selected?.codigo || "Desconocido"} - CIE-10`}
+  heading={selected?.nombre || "Capítulo no encontrado"}
+  breadcrumbs={breadcrumbs}
+>
+  <section class="py-8 flex flex-col gap-6">
+    {
+      selected
+        ? selected.grupos.map((grupo) => (
+            <article>
+              <a
+                class="block"
+                href={`/cie-10/${encodeURIComponent(capitulo)}/${encodeURIComponent(grupo.codigo)}`}
+              >
+                <div class="p-6 border border-gray-300 rounded-xl hover:bg-gray-100 transition">
+                  <h2 class="text-xl font-semibold">{grupo.codigo}</h2>
+                  <p class="text-gray-600 text-sm">{grupo.nombre}</p>
+                </div>
+              </a>
+            </article>
+          ))
+        : <p class="text-red-600">Capítulo no encontrado</p>
+    }
+  </section>
+</Layout>

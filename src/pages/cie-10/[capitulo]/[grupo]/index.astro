@@ -1,0 +1,43 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import type { Capitulo } from "@/data/cie10";
+import data from "@/data/cie10.json";
+
+const { capitulo = "", grupo = "" } = Astro.params;
+
+const capitulos = data as Capitulo[];
+const selectedCapitulo = capitulos.find((c) => c.codigo === capitulo);
+const selectedGrupo = selectedCapitulo?.grupos.find((g) => g.codigo === grupo);
+
+const breadcrumbs = [
+  { label: "CIE-10", href: "/cie-10" },
+  { label: selectedCapitulo?.codigo || "Capítulo desconocido", href: `/cie-10/${encodeURIComponent(capitulo)}` },
+  { label: selectedGrupo?.codigo || "Grupo desconocido" }
+];
+---
+
+<Layout
+  title={`${selectedGrupo?.codigo || "Grupo desconocido"} - ${selectedCapitulo?.codigo || "CIE-10"}`}
+  heading={selectedGrupo?.nombre || "Grupo no encontrado"}
+  breadcrumbs={breadcrumbs}
+>
+  <section class="py-8 flex flex-col gap-6">
+    {
+      selectedGrupo
+        ? selectedGrupo.categorias.map((cat) => (
+            <article>
+              <a
+                class="block"
+                href={`/cie-10/${encodeURIComponent(capitulo)}/${encodeURIComponent(grupo)}/${encodeURIComponent(cat.codigo)}`}
+              >
+                <div class="p-6 border border-gray-300 rounded-xl hover:bg-gray-100 transition">
+                  <h2 class="text-xl font-semibold">{cat.codigo}</h2>
+                  <p class="text-gray-600 text-sm">{cat.nombre}</p>
+                </div>
+              </a>
+            </article>
+          ))
+        : <p class="text-red-600">Grupo no encontrado en el capítulo</p>
+    }
+  </section>
+</Layout>

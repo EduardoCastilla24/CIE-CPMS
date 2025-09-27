@@ -1,3 +1,4 @@
+@import "@fontsource-variable/ibm-plex-sans";
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -112,6 +113,8 @@
 
 @layer base {
   * {
+    font-family: "IBM Plex Sans Variable", sans-serif;
+
     @apply border-border outline-ring/50;
   }
   body {
