@@ -30,7 +30,7 @@ const breadcrumbs = [
               >
                 <div class="p-6 border border-gray-300 rounded-xl hover:bg-gray-100 transition">
                   <h2 class="text-xl font-semibold">{grupo.codigo}</h2>
-                  <p class="text-gray-600 text-sm">{grupo.nombre}</p>
+                  <p class="text-gray-600 text-sm" transition:name={`title_${grupo.nombre}`}>{grupo.nombre}</p>
                 </div>
               </a>
             </article>
