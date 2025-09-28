@@ -4,8 +4,6 @@ import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 
 import Navbar from "@/components/Navbar.astro";
-import Breadcrumbs from "@/components/Breadcrumbs.astro";
-import Filter from "@/components/Filter.astro";
 
 interface Props {
   title?: string;
@@ -13,7 +11,7 @@ interface Props {
   breadcrumbs?: { label: string; href?: string }[];
 }
 
-const { title = "", heading, breadcrumbs = [] } = Astro.props;
+const { title = "", heading } = Astro.props;
 ---
 
 <!doctype html>
@@ -30,8 +28,7 @@ const { title = "", heading, breadcrumbs = [] } = Astro.props;
 
     <Navbar />
 
-    <main class="px-8 lg:px-0 lg:w-[60rem] top-24 relative">
-      {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
+    <main class="px-8 lg:px-0 w-full lg:w-[60rem] top-24 relative">
 
       {
         heading && (
@@ -40,8 +37,6 @@ const { title = "", heading, breadcrumbs = [] } = Astro.props;
           </h2>
         )
       }
-
-      <Filter />
       <slot />
     </main>
   </body>
