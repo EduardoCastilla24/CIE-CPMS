@@ -3,8 +3,9 @@ import { ClientRouter } from "astro:transitions";
 
 import "../styles/global.css";
 
-import Navbar from "@/components/astro/Navbar.astro";
-import Breadcrumbs from "@/components/astro/Breadcrumbs.astro";
+import Navbar from "@/components/Navbar.astro";
+import Breadcrumbs from "@/components/Breadcrumbs.astro";
+import Filter from "@/components/Filter.astro";
 
 interface Props {
   title?: string;
@@ -12,7 +13,7 @@ interface Props {
   breadcrumbs?: { label: string; href?: string }[];
 }
 
-const { title = "Astro Basics", heading, breadcrumbs = [] } = Astro.props;
+const { title = "", heading, breadcrumbs = [] } = Astro.props;
 ---
 
 <!doctype html>
@@ -21,29 +22,27 @@ const { title = "Astro Basics", heading, breadcrumbs = [] } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body
-    class="bg-background w-full h-fit md:h-[calc(100dvh-4rem)] flex flex-col items-center antialiased"
-  >
-  <ClientRouter />
+
+  <body class="bg-background w-full h-fit md:h-[calc(100dvh-4rem)] flex flex-col items-center antialiased">
+    <ClientRouter />
 
     <Navbar />
 
     <main class="px-8 lg:px-0 lg:w-[60rem] top-24 relative">
       {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
-      {heading && <h2 class="text-2xl font-bold" transition:name={`title_${heading}`}>{heading}</h2>}
+
+      {
+        heading && (
+          <h2 class="text-lg md:text-2xl font-bold" transition:name={`title_${heading}`}>
+            {heading}
+          </h2>
+        )
+      }
+
+      <Filter />
       <slot />
     </main>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

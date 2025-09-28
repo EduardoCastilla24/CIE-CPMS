@@ -19,11 +19,11 @@ const breadcrumbs = [
   heading={selected?.nombre || "Capítulo no encontrado"}
   breadcrumbs={breadcrumbs}
 >
-  <section class="py-8 flex flex-col gap-6">
+  <section class="py-8 flex flex-col gap-6"  data-filter="true">
     {
       selected
         ? selected.grupos.map((grupo) => (
-            <article>
+            <article data-item>
               <a
                 class="block"
                 href={`/cie-10/${encodeURIComponent(capitulo)}/${encodeURIComponent(grupo.codigo)}`}
