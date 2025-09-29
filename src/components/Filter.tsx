@@ -1,20 +1,23 @@
 // src/components/Filter.tsx
 import { useState, useEffect } from "react";
 import Tree from "./Tree";
-import data from "@/data/cie10.json";
+import type { Nodo } from "./Tree";
 
-export default function Filter() {
+interface FilterProps {
+  data: Nodo[];
+}
+
+export default function Filter({ data }: FilterProps) {
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
 
-  // cada vez que query cambia, esperamos 300ms antes de aplicarlo
   useEffect(() => {
     const handler = setTimeout(() => setDebouncedQuery(query), 300);
     return () => clearTimeout(handler);
   }, [query]);
 
   return (
-    <div className="space-y-4 mt-5 md:mt-10 w-full">
+    <div className="space-y-4 mt-10 w-full">
       <input
         type="search"
         value={query}

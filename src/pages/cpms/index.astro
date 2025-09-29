@@ -1,0 +1,15 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Filter from "@/components/Filter.tsx";
+import rawData from "@/data/cpms.json";
+import { adaptCpms } from "@/utils/adapters";
+
+const data = adaptCpms(rawData);
+---
+
+<Layout
+  title="CPMS"
+  heading="Catálogo de Procedimientos Médicos (CPMS)"
+>
+  <Filter client:load data={data} />
+</Layout>

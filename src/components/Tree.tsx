@@ -1,12 +1,9 @@
-// src/components/Tree.tsx
 import { useState, useEffect } from "react";
 
-interface Nodo {
+export interface Nodo {
     codigo: string;
     nombre: string;
-    grupos?: Nodo[];
-    categorias?: Nodo[];
-    subcategorias?: Nodo[];
+    children?: Nodo[];
 }
 
 interface TreeProps {
@@ -27,7 +24,7 @@ export default function Tree({ data, level = 0, filter = "" }: TreeProps) {
     }
 
     return (
-        <div className="space-y-2 w-full">
+        <div className="space-y-2">
             {filteredData.map((item) => (
                 <TreeNode
                     key={item.codigo}
@@ -40,7 +37,6 @@ export default function Tree({ data, level = 0, filter = "" }: TreeProps) {
     );
 }
 
-
 function TreeNode({
     item,
     level,
@@ -51,16 +47,16 @@ function TreeNode({
     filter?: string;
 }) {
     const [expanded, setExpanded] = useState(false);
-    const children = item.grupos || item.categorias || item.subcategorias || [];
+    const children = item.children || [];
 
-    // Saber si debe estar forzosamente expandido por el filtro
+    // expandir automáticamente si coincide o alguno de sus hijos
     const shouldExpand = filter && matches(item, filter) && children.length > 0;
 
     useEffect(() => {
         if (shouldExpand) {
             setExpanded(true);
         } else if (!filter) {
-            setExpanded(false); // reset al limpiar filtro
+            setExpanded(false);
         }
     }, [filter]);
 
@@ -92,13 +88,10 @@ function TreeNode({
 
 function matches(item: Nodo, query: string): boolean {
     if (!query) return true;
-    if (
-        (item.codigo + " " + item.nombre)
-            .toLowerCase()
-            .includes(query.toLowerCase())
-    ) {
+    const q = query.toLowerCase();
+    if ((item.codigo + " " + item.nombre).toLowerCase().includes(q)) {
         return true;
     }
-    const children = item.grupos || item.categorias || item.subcategorias || [];
+    const children = item.children || [];
     return children.some((child) => matches(child, query));
 }

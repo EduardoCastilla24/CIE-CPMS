@@ -1,12 +1,15 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import Filter from "@/components/Filter.tsx";
+import rawData from "@/data/cie10.json";
+import { adaptCie10 } from "@/utils/adapters";
+
+const data = adaptCie10(rawData);
 ---
 
 <Layout
-  title="CIE-10 - Capítulos"
+  title="CIE-10"
   heading="Clasificación Internacional de Enfermedades (CIE-10)"
 >
-  <Filter client:load />
-
+  <Filter client:load data={data} />
 </Layout>
