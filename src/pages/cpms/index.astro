@@ -10,6 +10,9 @@ const data = adaptCpms(rawData);
 <Layout
   title="CPMS"
   heading="Catálogo de Procedimientos Médicos (CPMS)"
+  description=`Explora el catálogo oficial de procedimientos médicos.
+    Usa el buscador para encontrar códigos o nombres, y expande los elementos
+    para ver sus subcategorías.`
 >
   <Filter client:load data={data} />
 </Layout>

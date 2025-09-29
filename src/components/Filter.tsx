@@ -23,7 +23,7 @@ export default function Filter({ data }: FilterProps) {
         value={query}
         onChange={(e) => setQuery(e.currentTarget.value)}
         placeholder="Buscar por código o nombre..."
-        className="text-sm md:text-base w-full p-3 border rounded-lg shadow-sm focus:ring-2 pl-4 focus:ring-gray-400"
+        className="text-xs md:text-sm w-full p-3 border rounded-lg shadow-sm focus:ring-2 pl-4 focus:ring-gray-400"
       />
 
       <Tree data={data} filter={debouncedQuery} />
