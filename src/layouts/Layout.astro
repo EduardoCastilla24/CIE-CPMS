@@ -5,6 +5,8 @@ import "../styles/global.css";
 
 import Navbar from "@/components/Navbar.astro";
 import InfoCard from "@/components/InfoCard.astro";
+import Footer from "@/components/Footer.astro";
+
 interface Props {
   title?: string;
   heading?: string;
@@ -16,22 +18,28 @@ const { title = "", heading, description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/assets/logos/iso_DevCast.svg" />
-    <title>Catálogo {title}</title>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="CIE-10, CPMS, enfermedades, clasificación, MINSA, salud Perú, códigos médicos" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/logos/iso_DevCast.svg" />
   </head>
 
   <body
-    class="bg-background w-full h-fit md:h-[calc(100dvh-4rem)] flex flex-col items-center antialiased"
+    class="bg-background w-full h-[calc(100dvh-6rem)]  flex flex-col items-center justify-between antialiased"
   >
     <ClientRouter />
 
     <Navbar />
 
-    <main class="px-8 lg:px-0 w-full lg:w-[60rem] top-24 relative">
+    <main class="px-8 lg:px-0 w-full  lg:w-[60rem] top-24 relative">
       <!-- TEXTOS DE INFORMACION -->
       <div class="space-y-6">
         <!-- TITULO -->
@@ -45,6 +53,9 @@ const { title = "", heading, description } = Astro.props;
       </div>
       <!-- SLOT -->
       <slot />
+
     </main>
+    <!-- FOOTER -->
+    <Footer />
   </body>
 </html>
