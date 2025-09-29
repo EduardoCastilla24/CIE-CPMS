@@ -20,8 +20,8 @@ const { title = "", heading, description } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/logos/iso_DevCast.svg" />
+    <title>Catálogo {title}</title>
   </head>
 
   <body
@@ -34,12 +34,13 @@ const { title = "", heading, description } = Astro.props;
     <main class="px-8 lg:px-0 w-full lg:w-[60rem] top-24 relative">
       <!-- TEXTOS DE INFORMACION -->
       <div class="space-y-6">
-        <h2 class="text-lg md:text-2xl font-bold" transition:name={`title_${heading}`}>
+        <!-- TITULO -->
+        <h2 class="text-lg md:text-2xl font-bold">
           {heading}
         </h2>
-
-        <p class="text-sm">{description}</p>
-
+        <!-- DESCRIPCION -->
+        <p class="text-sm leading-5">{description}</p>
+        <!-- INFO CARD -->
         <InfoCard />
       </div>
       <!-- SLOT -->
