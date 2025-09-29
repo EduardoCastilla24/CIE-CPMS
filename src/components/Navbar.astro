@@ -1,34 +1,77 @@
 ---
 // src/components/Navbar.astro
+const links = [
+  { href: "/cie-10", label: "CIE-10" },
+  { href: "/cpms", label: "CPMS" },
+];
 const pathname = Astro.url.pathname;
 ---
 
-<header class="dark:text-white w-full min-h-24 flex justify-center items-center fixed top-0 bg-white/30 backdrop-blur-sm z-20 dark:bg-dark/30">
-  <div class="flex flex-row items-center justify-between w-full px-8 lg:px-0 lg:w-[60rem]">
-    <img src="/assets/logos/logo_DevCast.svg" alt="Logo de DevCast" class="h-10" />
-    <nav class="h-fit lg:flex flex-row gap-4 hidden text-sm font-medium">
-		<a 
-			href="/cie-10"
-			title="CIE-10 | Clasificación internacional de enfermedades"
-			class={`px-4 py-2 border rounded-md ${
-			pathname.startsWith("/cie-10")
-				? "bg-primary/5 border-primary/50"
-				: "hover:bg-muted border-transparent"
-			}`}
-		>
-			CIE-10
-		</a>
-		<a
-			href="/cpms"
-			title="CPMS | Catálogo de Procedimientos Médicos y Sanitarios del Sector Salud"
-			class={`px-4 py-2 rounded-md ${
-			pathname.startsWith("/cpms")
-				? "bg-primary/5 border border-primary/50"
-				: "hover:bg-muted border-transparent"
-			}`}
-		>
-			CPMS
-		</a>
-    </nav>
+<header class="w-full fixed top-0 z-20 bg-white/30 dark:bg-dark/30 backdrop-blur-sm border-gray-200 dark:border-gray-700">
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4  lg:w-[60rem]">
+    <!-- Logo -->
+    <a href="/" class="flex items-center space-x-6 rtl:space-x-reverse">
+      <img src="/assets/logos/logo_DevCast.svg" class="h-8" alt="Logo DevCast" />
+    </a>
+
+    <!-- Botón hamburguesa -->
+    <button 
+      id="navbar-toggle"
+      type="button"
+      class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-700 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+      aria-controls="navbar-default" 
+      aria-expanded="false"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M1 1h15M1 7h15M1 13h15"/>
+      </svg>
+    </button>
+
+    <!-- Menu -->
+    <div class="hidden w-full sm:block sm:w-auto" id="navbar-default">
+      <ul class="font-medium flex flex-col p-4 sm:p-0 mt-4 border border-gray-200 rounded-lg w-full
+                bg-white/70 backdrop-blur-sm sm:flex-row sm:space-x-6 rtl:space-x-reverse sm:mt-0
+                sm:border-0 sm:bg-transparent dark:bg-gray-800/70 sm:dark:bg-transparent dark:border-gray-700">
+        {links.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class={`block py-2 px-3 rounded-md transition text-sm ${
+                pathname === link.href
+                  ? "bg-primary/10 border border-primary text-primary"
+                  : "text-primary hover:text-primary/70 hover:border border-primary/60"
+              }`}
+              aria-current={pathname === link.href ? "page" : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </header>
+
+<script is:inline>
+  function initNavbarToggle() {
+    const toggleBtn = document.getElementById("navbar-toggle");
+    const menu = document.getElementById("navbar-default");
+
+    if (toggleBtn && menu) {
+      toggleBtn.onclick = () => {
+        menu.classList.toggle("hidden");
+        toggleBtn.setAttribute(
+          "aria-expanded",
+          menu.classList.contains("hidden") ? "false" : "true"
+        );
+      };
+    }
+  }
+
+  // Se ejecuta en cada navegación SPA (Astro Transitions/ClientRouter)
+  document.addEventListener("astro:after-swap", initNavbarToggle);
+  // Se ejecuta también en la carga inicial
+  document.addEventListener("astro:page-load", initNavbarToggle);
+</script>

@@ -26,7 +26,7 @@ const { title = "", heading } = Astro.props;
   <body class="bg-background w-full h-fit md:h-[calc(100dvh-4rem)] flex flex-col items-center antialiased">
     <ClientRouter />
 
-    <Navbar />
+    <Navbar client:load/>
 
     <main class="px-8 lg:px-0 w-full lg:w-[60rem] top-24 relative">
 
