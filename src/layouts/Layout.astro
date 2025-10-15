@@ -33,7 +33,7 @@ const { title = "", heading, description } = Astro.props;
   </head>
 
   <body
-    class="bg-background w-full h-[calc(100dvh-6rem)]  flex flex-col items-center justify-between antialiased"
+    class="w-full h-[calc(100dvh-6rem)] bg-[#f9f9ff] flex flex-col items-center justify-between antialiased"
   >
     <ClientRouter />
 
@@ -43,11 +43,11 @@ const { title = "", heading, description } = Astro.props;
       <!-- TEXTOS DE INFORMACION -->
       <div class="space-y-6">
         <!-- TITULO -->
-        <h2 class="text-lg md:text-2xl font-bold">
+        <h2 class="text-lg md:text-2xl font-bold text-[#353535]">
           {heading}
         </h2>
         <!-- DESCRIPCION -->
-        <p class="text-sm leading-5">{description}</p>
+        <p class="text-sm leading-5 text-[#353535]">{description}</p>
         <!-- INFO CARD -->
         <InfoCard />
       </div>
